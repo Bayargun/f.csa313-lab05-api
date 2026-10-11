@@ -1,0 +1,134 @@
+(node:54514) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+newman
+
+lab05-api-fail
+
+❏ Amjilltai-bvrtgel
+↳ Create-student
+  PUT http://localhost:3000/students/B231234567 [200 OK, 178B, 25ms]
+
+↳ create-course
+  PUT http://localhost:3000/courses/CS313 [200 OK, 178B, 2ms]
+
+↳ registrations
+  POST http://localhost:3000/registrations [201 Created, 203B, 2ms]
+  1. Successful POST request - Intentional FAIL
+  ✓  Response has result OK
+  ✓  Response contains registration ID
+
+❏ student-not-found
+↳ New Request
+  PUT http://localhost:3000/courses/102 [200 OK, 178B, 2ms]
+
+↳ post-student
+  POST http://localhost:3000/registrations [200 OK, 192B, 2ms]
+  ✓  Status code is 200
+  ✓  Student not found
+
+❏ inactive-student
+↳ put-inactive-student
+  PUT http://localhost:3000/students/s3 [200 OK, 178B, 1ms]
+
+↳ New Request
+  PUT http://localhost:3000/courses/cs103 [200 OK, 178B, 2ms]
+
+↳ New Request
+  POST http://localhost:3000/registrations [200 OK, 198B, 2ms]
+  ✓  TC03 - Status code is 200
+  ✓  TC03 - Inactive student error
+
+❏ course-not-found
+↳ pu-student
+  PUT http://localhost:3000/students/s4 [200 OK, 178B, 2ms]
+
+↳ New Request
+  POST http://localhost:3000/registrations [200 OK, 191B, 2ms]
+  ✓  TC04 - Status code is 200
+  ✓  TC04 - Course not found
+
+❏ bad-request
+↳ registrations
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 2ms]
+  ✓  TC08 - Status code is 400
+  ✓  TC08 - Bad request error
+
+❏ missing-prerequisites
+↳ create-student
+  PUT http://localhost:3000/students/s5 [200 OK, 178B, 1ms]
+
+↳ create-course
+  PUT http://localhost:3000/courses/cs105 [200 OK, 178B, 1ms]
+
+↳ registrations
+  POST http://localhost:3000/registrations [200 OK, 215B, 2ms]
+  ✓  TC05 - Status code is 200
+  ✓  TC05 - Prerequisites error
+  ✓  TC05 - Missing CS201
+
+❏ partial-prerequisites
+↳ create-student
+  PUT http://localhost:3000/students/s7 [200 OK, 178B, 1ms]
+
+↳ create-course
+  PUT http://localhost:3000/courses/cs107 [200 OK, 178B, 1ms]
+
+↳ registrations
+  POST http://localhost:3000/registrations [200 OK, 215B, 1ms]
+  ✓  TC07 - Status code is 200
+  ✓  TC07 - Prerequisites error
+  ✓  TC07 - Missing CS202
+
+❏ Wrong-json
+↳ registrations
+  POST http://localhost:3000/registrations [400 Bad Request, 199B, 1ms]
+  ✓  TC09 - Status code is 400
+  ✓  TC09 - Invalid JSON error
+
+❏ No-prerequisites
+↳ create-student
+  PUT http://localhost:3000/students/s6 [200 OK, 178B, 1ms]
+
+↳ create-course
+  PUT http://localhost:3000/courses/cs106 [200 OK, 178B, 1ms]
+
+↳ registrations
+  POST http://localhost:3000/registrations [201 Created, 203B, 2ms]
+  ✓  TC06 - Status code is 201
+  ✓  TC06 - Result is OK
+  ✓  TC06 - Registration ID is a number
+
+❏ Multiple-errors
+↳ New Request
+  PUT http://localhost:3000/students/s10 [200 OK, 178B, 2ms]
+
+↳ registrations
+  POST http://localhost:3000/registrations [200 OK, 198B, 1ms]
+  ✓  TC10 - Inactive student takes priority
+
+┌─────────────────────────┬─────────────────┬─────────────────┐
+│                         │        executed │          failed │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              iterations │               1 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│                requests │              23 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│            test-scripts │              11 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│      prerequest-scripts │               0 │               0 │
+├─────────────────────────┼─────────────────┼─────────────────┤
+│              assertions │              23 │               1 │
+├─────────────────────────┴─────────────────┴─────────────────┤
+│ total run duration: 305ms                                   │
+├─────────────────────────────────────────────────────────────┤
+│ total data received: 553B (approx)                          │
+├─────────────────────────────────────────────────────────────┤
+│ average response time: 2ms [min: 1ms, max: 25ms, s.d.: 4ms] │
+└─────────────────────────────────────────────────────────────┘
+
+[31m  # [39m[31m failure        [39m[31m detail                                                [39m
+[90m    [39m[90m                [39m[90m                                                       [39m
+ 1.  AssertionError  Successful POST request - Intentional FAIL            
+                     expected response to have status code 200 but got 201 
+                     at assertion:0 in test-script                         
+                     inside "Amjilltai-bvrtgel / registrations"            
