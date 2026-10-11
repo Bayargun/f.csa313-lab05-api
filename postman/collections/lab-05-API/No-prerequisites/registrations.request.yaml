@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID": "s6",
+        "courseID":"cs106"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC06 - Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("TC06 - Result is OK", function () {
+          pm.expect(pm.response.json().result).to.eql("OK");
+      });
+
+      pm.test("TC06 - Registration ID is a number", function () {
+          pm.expect(pm.response.json().registrationID)
+            .to.be.a("number");
+      });
+    language: text/javascript
+order: 3991967390519601

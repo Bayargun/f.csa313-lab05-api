@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID": "s4",
+        "courseID": "UNKNOWN_COURSE"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC04 - Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC04 - Course not found", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_NO_COURSE");
+      });
+    language: text/javascript
+order: 373321827591139

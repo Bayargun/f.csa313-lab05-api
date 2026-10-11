@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/students/s4"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "status": "active",
+        "coursesTaken": ["CS201"]
+    }
+scripts:
+  - type: afterResponse
+    code: ""
+    language: text/javascript
+order: 1791715736484

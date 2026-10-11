@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/courses/cs101"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "prerequisites": []
+    }
+order: 2000

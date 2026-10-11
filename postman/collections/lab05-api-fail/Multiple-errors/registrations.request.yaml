@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID": "s10",
+        "courseID": "NO_COURSE_10"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC10 - Inactive student takes priority", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_INACTIVE_STUDENT");
+      });
+    language: text/javascript
+order: 2760638665657045

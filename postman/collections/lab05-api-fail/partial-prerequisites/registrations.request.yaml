@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID": "s7",
+        "courseID": "cs107"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC07 - Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC07 - Prerequisites error", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_PREREQUISITES");
+      });
+
+      pm.test("TC07 - Missing CS202", function () {
+          pm.expect(pm.response.json().missing)
+            .to.deep.equal(["CS202"]);
+      });
+    language: text/javascript
+order: 2361322537443279

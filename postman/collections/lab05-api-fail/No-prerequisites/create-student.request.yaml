@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/students/s6"
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+        "status":"active",
+        "courseTaken": []
+    }
+order: 1791723755257

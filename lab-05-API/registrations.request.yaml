@@ -1,0 +1,31 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "studentID": "s1",
+      "courseID": "cs101"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Successful POST request", function () {
+          pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has result OK", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.result).to.eql("OK");
+      });
+
+      pm.test("Response contains registration ID", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("registrationID");
+          pm.expect(jsonData.registrationID).to.be.a("number");
+      });
+    language: text/javascript
+order: 3000

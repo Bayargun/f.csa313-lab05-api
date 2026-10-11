@@ -1,0 +1,24 @@
+$kind: http-request
+name: New Request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID": "s3",
+        "courseID": "cs103"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC03 - Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("TC03 - Inactive student error", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_INACTIVE_STUDENT");
+      });
+    language: text/javascript
+order: 3552830321460186

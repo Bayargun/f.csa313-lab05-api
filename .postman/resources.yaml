@@ -1,0 +1,15 @@
+workspace:
+  id: df7b2114-9a15-48a9-8747-27460807400e
+
+localResources:
+  collections:
+    - ../lab-05-API
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/lab-05-API: 42608019-270484ed-3acf-466f-9078-06ba2496c75f
+    ../lab-05-API: 42608019-df93e007-dbde-4153-807b-48398ad4af21
+  globals:
+    ../postman/globals/workspace.globals.yaml: 49ac2260-db06-430b-817d-db1b249173a6

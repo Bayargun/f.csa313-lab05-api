@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "courseID": "cs108"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC08 - Status code is 400", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC08 - Bad request error", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_BAD_REQUEST");
+      });
+    language: text/javascript
+order: 1791724408005

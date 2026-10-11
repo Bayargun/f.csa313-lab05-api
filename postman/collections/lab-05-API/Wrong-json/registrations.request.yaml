@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID":"s9","courseID":
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("TC09 - Status code is 400", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("TC09 - Invalid JSON error", function () {
+          pm.expect(pm.response.json().result)
+            .to.eql("ERROR_BAD_JSON");
+      });
+    language: text/javascript
+order: 1791724559405

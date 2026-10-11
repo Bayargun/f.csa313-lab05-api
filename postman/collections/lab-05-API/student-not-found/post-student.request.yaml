@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/registrations"
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "studentID":"UNKNOWN999",
+        "courseID":"cs101"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Student not found", function () {
+          const json = pm.response.json();
+          pm.expect(json.result).to.eql("ERROR_NO_STUDENT");
+      });
+    language: text/javascript
+order: 1791714555587

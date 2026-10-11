@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/courses/CS313"
+method: PUT
+order: 1758738016065594
+body:
+  type: json
+  content: |-
+    {
+        "prerequisites": ["CS201"]
+    }
